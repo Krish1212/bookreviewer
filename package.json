@@ -11,6 +11,8 @@
     "body-parser": "^1.17.2",
     "connect-flash": "^0.1.1",
     "cookie-parser": "~1.4.3",
+    "couchdb": "^0.3.8",
+    "cradle": "^0.7.1",
     "crypto": "0.0.3",
     "debug": "~2.6.3",
     "dotenv": "^4.0.0",
