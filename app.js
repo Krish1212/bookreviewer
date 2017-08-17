@@ -1,38 +1,19 @@
 var express = require('express');
+var util = require('util');
 var expressValidator = require('express-validator');
-var session = require('express-session');
 var path = require('path');
+var session = require('express-session');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var util = require('util');
 var flash = require('connect-flash');
-var cradle = require('cradle');
 var crypto = require('crypto');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-
-//couch db connection
- var c = new(cradle.Connection)('http://localhost',5984, {
-  cache : true,
-  raw   : false,
-  forceSave : true,
-  request : { }
-});
-//Database request and existence
-var db = c.database('bookreview');
-db.exists(function(err,exists){
-  if(err) {
-    console.log('Error ' + err);
-  } else if (exists) {
-    console.log('Connection successfull');
-    console.log('Database exists');
-  } else {
-    console.log("Database doesn't exists");
-    db.create();
-  }
-});
+//couch db connection and database call
+var db = require('nano')('http://localhost:5984/bookreview');
+console.log((db.config.db === 'bookreview') ? 'Database connected' : 'No database available');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -46,11 +27,12 @@ app.set('view engine', 'jade');
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
-app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(bodyParser.json({ type: 'application/vnd.api+json' })); 
 //Use express session
 app.use(session({
-  secret : 'happy coding folks',
+  secret : 'happycodingfolks',
   saveUninitialized : true,
   resave : true
 }));

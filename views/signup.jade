@@ -1,0 +1,29 @@
+extends layout
+
+block content
+    ul.errors
+        if (errors)
+            each error, i in errors
+                li.alert.alert-danger #{error.msg}
+    .card
+        h2.cardhead Registration Form
+        form(method='post',action='/users/signup')
+            .form-group
+                label Name
+                input.form-control(type='text',name='name',placeholder="Enter Name")
+            .form-group
+                label Username
+                input.form-control(type='email',name='username',placeholder="Enter Email")
+            .form-group
+                label Role
+                select.form-control(name='role')
+                    option(value='user') User
+                    option(value='admin') Admin
+            .form-group
+                label Password
+                input.form-control(type='password',name='password',placeholder="Enter Password")
+            .form-group
+                label Confirm Password
+                input.form-control(type='password',name='password2',placeholder="Confirm Password")
+            button.btn.btn-block.btn-primary(type='submit',name='submit') Sign Up
+    

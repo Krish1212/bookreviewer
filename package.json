@@ -11,22 +11,20 @@
     "body-parser": "^1.17.2",
     "connect-flash": "^0.1.1",
     "cookie-parser": "~1.4.3",
-    "cradle": "^0.7.1",
     "crypto": "0.0.3",
     "debug": "~2.6.3",
-    "dotenv": "^4.0.0",
     "express": "~4.15.2",
     "express-messages": "^1.0.1",
     "express-session": "^1.15.5",
     "express-validator": "^3.2.1",
     "jade": "~1.11.0",
-    "mongodb": "^2.2.30",
-    "mongoose": "^4.11.4",
     "morgan": "~1.8.1",
+    "nano": "^6.4.0",
     "nodemon": "^1.11.0",
     "passport": "^0.3.2",
     "passport-http": "^0.3.0",
     "passport-local": "^1.0.0",
     "serve-favicon": "~2.4.2"
-  }
+  },
+  "dependencies": {}
 }

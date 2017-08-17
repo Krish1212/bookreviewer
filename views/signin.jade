@@ -1,0 +1,21 @@
+extends layout
+
+block content
+    ul.errors
+        if (errors)
+            each error, i in errors
+                li.alert.alert-danger #{error.msg}
+    .card
+        h2.cardhead Welcome back...
+        form(action='/users/signin',method='post')
+            .form-group
+                label Username
+                input.form-control(type='email',name='username',placeholder="Enter username")
+            .form-group
+                label Password
+                input.form-control(type='password',name='password',placeholder="Enter password")
+            button.btn.btn-block.btn-success(type='submit',name='submit') Sign In
+            br
+            p(style="font-weight:bold;text-align:center;") OR
+            button.btn.btn-block.btn-primary(type='submit',name='fb-submit') Sign In with Facebook
+    

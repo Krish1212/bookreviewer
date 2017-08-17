@@ -1,8 +1,41 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background:#3d4656;
 }
 
-a {
-  color: #00B7FF;
+/* Login and signup card */
+.card {
+  position:relative;
+  width: 40%;
+  margin:3em auto;
+  background:#cbd4c2;
+  border:1px solid #137547;
+  border-radius:20px;
+/*   -webkit-box-shadow: 5px 5px 5px 5px #fffffa;
+  box-shadow: 5px 5px 5px 5px #fffffa; */
+}
+.card .cardhead{
+  margin:0;
+  margin-bottom:20px;
+  padding:10px;
+  color: #eee;
+  background:#5b7f77;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+.card form {
+  padding:0 20px 20px 20px;
+}
+
+/* footer styles */
+.footer {
+  bottom: 0;
+  left:0;
+  margin:0 auto;
+  position:fixed;
+  width:100%;
+  background:#eee;
+  padding-top:10px;
+  text-align: center;
 }
