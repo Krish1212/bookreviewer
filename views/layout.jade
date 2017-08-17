@@ -21,12 +21,17 @@ html(lang='en')
           a.navbar-brand(href='/') Online Book Reviewer
         #navbar.collapse.navbar-collapse
           ul.nav.navbar-nav
-            li.active
+            li(class = (title === 'Reviews') ? 'active' : '')
               a(href='/') Home
-            li
-              a(href='/users/signin') Login
-            li
-              a(href='/users/signup') Signup
+            if !user
+              li(class = (title === 'Signin') ? 'active' : '')
+                a(href='/users/signin') Login
+              li(class = (title === 'Signup') ? 'active' : '')
+                a(href='/users/signup') Signup
+          ul.nav.navbar-nav.navbar-right
+            if user
+              li
+                a(href='/users/logout') Logout              
         // /.nav-collapse
     // Begin page content
     .container
