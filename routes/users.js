@@ -3,6 +3,7 @@ var crypto = require('crypto');
 var router = express.Router();
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var FacebookStrategy = require('passport-facebook').Strategy;
 
 //couch db connection and database call
 var db = require('nano')('http://localhost:5984/bookreview');
@@ -112,10 +113,62 @@ router.post('/signin', passport.authenticate('local',{failureRedirect:'/users/lo
   res.redirect('/');
 });
 
+//Facebook login module
+passport.use(new FacebookStrategy({
+  clientID : '758211391024447',
+  clientSecret : 'a5b418281a2e388e6550a7e45a40f153',
+  callbackURL : 'http://localhost:3000/users/auth/facebook/callback',
+  profileFields : ['id','displayName', 'email'],
+  enableProof : true
+},
+function(accessToken, refreshToken, profile, done){
+  //console.log(profile._json);
+  var pid = profile._json.id;
+  var pname = profile._json.name;
+  var pusername = (profile._json.email && profile._json.email !== undefined) ? profile._json.email : 'NONE';
+  var pdate = new Date();
+  db.get('_design/getUser/_view/fb-user-view?id="' + pid + '"',{ revs_info:true },function(err,body){
+    if(err) console.log('Error: ' + err); //handle errors here
+    if (!err && body.total_rows > 0) {
+      return done(null, body);
+    } else {
+      db.insert({
+        oauthId : pid,
+        name    : pname,
+        username : pusername,
+        role    : 'user',
+        isDeleted : false,
+        createdOn : pdate
+      },function(err,body){
+          if (err) throw err;
+          if (body.ok === true){
+            var _id = body.id;
+            db.get('_design/getUser/_view/fb-user-view?id="' + _id + '"', { revs_info : true }, function(err, body){
+              if (err) console.log(err);
+              return done(null,body);
+            });
+          } else {
+            return done(null,false, { message : 'User not authenticated' });
+          }
+      });
+    }
+  })
+}));
+
+router.get('/auth/facebook',passport.authenticate('facebook'));
+
+router.get('/auth/facebook/callback', passport.authenticate('facebook',{failureRedirect:'/users/login',failureFlash:'Login Authentication Failed'}), function(req, res, next){
+  console.log('Authentication successfull');
+  req.flash('success','Login Successfull');
+  res.redirect('/');
+});
+
+//Logout module
 router.get('/logout', function(req, res, next){
   req.logout();
   req.flash('success','User Logged out');
   res.redirect('/users/signin');
 });
+
 
 module.exports = router;
