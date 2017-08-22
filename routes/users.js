@@ -54,7 +54,7 @@ router.post('/signup', function(req, res, next){
           role : role
         });
       } else {
-        db.insert({ 
+        db.insert({
           name : name,
           username : username,
           role : role,
@@ -109,7 +109,7 @@ passport.use(new LocalStrategy(
 //Login post method
 router.post('/signin', passport.authenticate('local',{failureRedirect:'/users/login',failureFlash:'Login Authentication Failed'}), function(req, res, next){
   console.log('Authentication successfull');
-  req.flash('success','Login Successfull');
+  req.flash('success','Authentication successfull');
   res.redirect('/');
 });
 
@@ -159,7 +159,7 @@ router.get('/auth/facebook',passport.authenticate('facebook'));
 
 router.get('/auth/facebook/callback', passport.authenticate('facebook',{failureRedirect:'/users/login',failureFlash:'Login Authentication Failed'}), function(req, res, next){
   console.log('Authentication successfull');
-  req.flash('success','Login Successfull');
+  req.flash('success','Authentication Successfull');
   res.redirect('/');
 });
 

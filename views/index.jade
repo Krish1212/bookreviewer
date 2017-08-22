@@ -4,5 +4,25 @@ block content
   if user
     h1 Welcome back #{user.rows[0].value}
     hr
+    a.btn.btn-success(href="/review/addReview") Create New Review
+    if reviews
+      .container
+        .row
+          each review, i in reviews
+            .col-md-4
+              h2 
+                a(href="/review/show/#{review.key}") #{review.key}
+              p
+                | #{review.value.content}
+              p
+                | created by #{review.value.creator}
+              p
+                a.btn.btn-primary(href='/review/show/#{review.key}', role='button') View details »
+          .col-md-4
+            h2 Heading
+            p
+              | Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
+            p
+              a.btn.btn-primary(href='#', role='button') View details »
   else
-    h1 Unauthenticated Access
+    h1 Unauthenticated Access...Please Sign in or Sign up to have fun

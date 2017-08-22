@@ -1,0 +1,48 @@
+extends layout
+
+block content
+  if user
+    h1 Welcome back #{user.rows[0].value}
+    hr
+    .container
+        .row
+            if review
+                .col-md-12
+                    h2 #{review[0].key}
+                    p
+                        | #{review[0].value.content}
+                    p
+                        | Created by #{review[0].value.creator}
+            else
+                .col-md-12
+                    p
+                        | This review is currently not available for display
+        hr
+        .row
+            if comments
+                h4 Comments
+                each comment, i in comments
+                    .col-md-12
+                        h3 #{comment.title}
+                        p
+                            | #{comment.comment}
+                        p
+                            | Posted by #{comment.commentBy}
+        hr
+        .row
+            .col-md-12
+                ul.errors
+                    if errors
+                        each error, i in errors
+                            li.alert.alert-danger #{error.msg}
+                form(method='post',action='/review/addComment')
+                    input.form-control(type='hidden',name='reviewJson',value='#{JSON.stringify(review)}')
+                    .form-group
+                        label Title
+                        input.form-control(type='text',name='title',placeholder='Enter the title')
+                    .form-group
+                        label Comment
+                        textarea.form-control(id='comment',name='comment',rows='5',placeholder='Enter the comment')
+                    button.btn.btn-primary(type='submit',name='submit') Leave a comment
+  else
+    h1 Unauthenticated Access...Please Sign in or Sign up to have fun

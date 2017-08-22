@@ -1,0 +1,22 @@
+extends layout
+
+block content
+  if user
+    h1 Welcome back #{user.rows[0].value}
+    hr
+    .container
+        ul.errors
+            if errors
+                each error, i in errors
+                    li.alert.alert-danger #{error.msg}
+        form(method='post',action='/review/addReview')
+            .form-group
+                label Title
+                input.form-control(type='text',name='title',placeholder='Enter the title')
+            .form-group
+                label Contents
+                textarea.form-control(id='contents',name='contents',rows='12',placeholder='Enter the Review')
+            button.btn.btn-success(type='submit',name='submit') Create
+
+  else
+    h1 Unauthenticated Access...Please Sign in or Sign up to have fun
