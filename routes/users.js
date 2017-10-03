@@ -6,7 +6,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
 
 //couch db connection and database call
-var db = require('nano')('http://localhost:5984/bookreview');
+var db = require('nano')('https://admin:afd3c323a996@couchdb-3fc700.smileupps.com/bookreview');
 
 //sub function hash to encrypt the entered password
 function hash(input,salt){

@@ -12,7 +12,7 @@ var crypto = require('crypto');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 //couch db connection and database call
-var db = require('nano')('http://localhost:5984/bookreview');
+var db = require('nano')('https://admin:afd3c323a996@couchdb-3fc700.smileupps.com/bookreview');
 console.log((db.config.db === 'bookreview') ? 'Database connected' : 'No database available');
 
 var index = require('./routes/index');

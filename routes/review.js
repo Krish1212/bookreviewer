@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 //couch db connection and database call
-var db = require('nano')('http://localhost:5984/bookreview');
+var db = require('nano')('https://admin:afd3c323a996@couchdb-3fc700.smileupps.com/bookreview');
 
 router.get('/show/:_title', function(req, res, next){
     if (req.user){
